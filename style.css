@@ -1,0 +1,106 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 1rem;
+}
+
+.row {
+    clear: both;
+}
+
+.card {
+    float: left;
+}
+
+.heading-section {
+    background-color: #397ab2;
+    color: #fff;
+    padding: 79px 0 0;
+    text-align: center;
+}
+
+.card-inner {
+    float: left;
+}
+
+.controls {
+    padding: 82px 0 50px;
+    position: relative;
+}
+
+.switcher-holder {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent url("assets/switcher.gif") center center no-repeat;
+    border: none;
+    float: left;
+    height: 36px;
+    width: 60px;
+}
+
+.switcher-holder.rotate {
+    transform: rotate(180deg);
+}
+
+.billing-type--name {
+    color: rgba(255, 255, 255, .5);
+    float: left;
+    line-height: 1;
+    padding: 7px 0;
+    width: 80px;
+}
+
+.billing-type--name.selected {
+    color: #fff;
+}
+
+.billing-type {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.currency-holder {
+}
+
+.price {
+    display: none;
+}
+
+.price.active {
+    display: block;
+}
+
+@media only screen and (min-width: 600px) {
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card-inner {
+        width: 50%;
+    }
+
+    .heading-section {
+        padding: 45px 0 0;
+    }
+}
+
+@media only screen and (min-width: 940px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        width: 33%;
+        float: left;
+    }
+
+    .card-inner {
+        width: 100%;
+    }
+}
