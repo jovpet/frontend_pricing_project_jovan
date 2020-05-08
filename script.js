@@ -1,15 +1,30 @@
+const pricingState = {
+  currency: 'USD',
+  billingInterval: 'annually'
+};
+
 function switchBillingPeriod(ev) {
   const targetEl = ev.currentTarget;
   const billingNamesArr = document.getElementsByClassName('billing-type--name');
   const prices = document.getElementsByClassName('price');
   const billingInterval = rotateSwitcher(billingNamesArr, targetEl);
-  const currency = $(ev.currentTarget).data('currency')
-  switchPrice(prices, billingInterval, currency);
+  if (billingInterval !== pricingState.billingInterval) {
+    switchPrice(prices, billingInterval, null);
+  }
 }
 
 function switchPrice(prices, billingInterval, currency) {
-  console.log(prices, billingInterval, currency);
-  let innerText = billingInterval === 'annual' ? `per month, paid annually*` : 'per month*';
+  if (!currency) {
+    currency = pricingState.currency;
+  } else if (currency !== pricingState.currency) {
+    pricingState.currency = currency;
+  }
+  if (!billingInterval) {
+    billingInterval = pricingState.billingInterval;
+  } else if (billingInterval !== pricingState.billingInterval) {
+    pricingState.billingInterval = billingInterval;
+  }
+  let innerText = billingInterval === 'annually' ? `per month, paid annually*` : 'per month*';
   const infos = document.getElementsByClassName('info');
   for (let i = 0; i < infos.length; i++) {
     infos[i].innerHTML = innerText;
@@ -25,7 +40,7 @@ function rotateSwitcher(billingNamesArr, targetEl) {
     targetEl.classList.remove('rotate');
     billingNamesArr[0].classList.remove('selected');
     billingNamesArr[1].classList.add('selected');
-    return 'annual';
+    return 'annually';
   } else {
     targetEl.classList.add('rotate');
     billingNamesArr[1].classList.remove('selected');
@@ -36,21 +51,10 @@ function rotateSwitcher(billingNamesArr, targetEl) {
 
 function changeCurrency(ev) {
   const currencyVal = ev.currentTarget.innerHTML;
-  let billingSwitcherEl = $('#switch-billing-types');
-  const currentCurrency = billingSwitcherEl.data('currency');
-  if (currentCurrency !== currencyVal) {
-    console.log('set data to: ' + currencyVal);
-    billingSwitcherEl.data('currency', currencyVal);
+  if (currencyVal !== pricingState.currency) {
     const prices = document.getElementsByClassName('price');
-    const billingInterval = $('.billing-type--name.selected').text().toLowerCase();
-
-
-
-    switchPrice(prices, billingInterval, currencyVal);
-
-    // TODO check on this later!!
+    switchPrice(prices, null, currencyVal);
   }
-  console.log(currencyVal, currentCurrency);
 }
 
 const switcherElement = document.getElementById('switch-billing-types');
